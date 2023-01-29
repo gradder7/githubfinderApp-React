@@ -7,7 +7,8 @@ const github_url = process.env.REACT_APP_GITHUB_URL;
 export const GithubProvide = ({ children }) => {
   const initialValue = {
     users: [],
-    user:{},
+    user: {},
+    repos: [],
     loading: false,
   };
 
@@ -51,26 +52,43 @@ export const GithubProvide = ({ children }) => {
   };
 
   // get single user on click user
-    const singleUser = async (login) => {
-      setLoading();
-      // const params = useParams();
-      const response = await fetch(`${github_url}/users/${login}`);
-      if(response.status===404){
-        window.location='/notfound'
-      } else{
-        const data= await response.json();
-        dispatch({
-          type: "GET_USER",
-          payload: data,
-        });
-      }
-    };
+  const singleUser = async (login) => {
+    setLoading();
+    // const params = useParams();
+    const response = await fetch(`${github_url}/users/${login}`);
+    if (response.status === 404) {
+      window.location = "/notfound";
+    } else {
+      const data = await response.json();
+      dispatch({
+        type: "GET_USER",
+        payload: data,
+      });
+    }
+  };
 
   const setLoading = () =>
-  dispatch({
-    type: "SET_LOADING",
-  });
-  
+    dispatch({
+      type: "SET_LOADING",
+    });
+
+  const getUserRepos = async (login) => {
+    setLoading();
+    const params = new URLSearchParams({
+      sort: "created",
+      per_page: 10,
+    });
+
+    const response = await fetch(
+      `${github_url}/users/${login}/repos?${params}`,
+    );
+    const data = await response.json();
+    dispatch({
+      type: "GET_REPOS",
+      payload: data,
+    });
+  };
+
   // clear from user
   const handleClear = () => {
     dispatch({
@@ -83,10 +101,12 @@ export const GithubProvide = ({ children }) => {
       value={{
         users: state.users,
         loading: state.loading,
-        user:state.user,
+        user: state.user,
+        repos: state.repos,
         searchUsers,
         handleClear,
         singleUser,
+        getUserRepos,
       }}
     >
       {children}

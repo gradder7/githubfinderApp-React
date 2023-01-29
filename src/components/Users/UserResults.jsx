@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Spinner from "../layout/Spinner";
+import UsersItems from "./UsersItems";
 
 export default function UserResults() {
   const [users, setUsers] = useState([]);
@@ -26,12 +27,12 @@ export default function UserResults() {
 
   //   if loading true than show loader or data
   return loading ? (
-   <Spinner/>
+    <Spinner />
   ) : (
-    <div className="grid grid-col-1 gap-8 xl:grid-col-4 lg:grid-col-3 md:grid-col-2">
-      {users.map((user,index) => {
-        return <h1 key={'user'+index}>{user.login}</h1>;
-      })}
+    <div className="grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
+      {users.map((user) => (
+        <UsersItems key={user.id} user={user} />
+      ))}
     </div>
   );
 }

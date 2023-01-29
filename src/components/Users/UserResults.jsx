@@ -1,14 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import GithubContext from "../../context/github/GithubContext";
 import Spinner from "../layout/Spinner";
 import UsersItems from "./UsersItems";
 
 export default function UserResults() {
-  const{users,loading,fetchData} = useContext(GithubContext);
+  const { users, loading } = useContext(GithubContext);
 
-  useEffect(() => {
-    fetchData();
-  });
+
 
   //   if loading true than show loader or data
   return loading ? (
@@ -21,6 +19,3 @@ export default function UserResults() {
     </div>
   );
 }
-
-
-

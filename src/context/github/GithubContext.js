@@ -6,12 +6,15 @@ const github_url = process.env.REACT_APP_GITHUB_URL;
 export const GithubProvide = ({ children }) => {
     const initialValue={
         users:[],
-        loading:true
+        loading:false,
     }
 
   const [state, dispatch] = useReducer(githubReducers,initialValue);
 
+  // get intitial user for (testing purpose) only
+  //we will search the user 
   const fetchData = async () => {
+    setLoading();
     const response = await fetch(`${github_url}/users`);
     // , {
     //   // to set the github token in authorization
@@ -21,11 +24,19 @@ export const GithubProvide = ({ children }) => {
     //   },
     // });
     const data = await response.json();
+    // when ever i want to change the state i will call dispach which will triggre action 
+    //and action will check the type and update the state
     dispatch({
         type:'GET_USERS',
         payload:data,
     })
   };
+
+  const setLoading=()=>
+    dispatch({
+        type:'SET_LOADING',
+    })
+
 
   return (
     <GithubContext.Provider value={{ users:state.users, loading:state.loading, fetchData }}>

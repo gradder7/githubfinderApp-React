@@ -3,7 +3,7 @@ import GithubContext from "../../context/github/GithubContext";
 
 export default function UserSearch() {
   const [text, setText] = useState("");
-  const {users}=useContext(GithubContext);
+  const { users, searchUsers } = useContext(GithubContext);
   const handleChange = (e) => {
     setText(e.target.value);
   };
@@ -13,7 +13,9 @@ export default function UserSearch() {
     if (text.trim() === "") {
       alert("Please enter something");
     } else {
-      //todo@- search users
+      //search users
+      searchUsers(text);
+
       setText("");
     }
   };

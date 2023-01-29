@@ -1,4 +1,5 @@
 import { createContext, useReducer } from "react";
+import { useParams } from "react-router-dom";
 import githubReducers from "./GithubReducers";
 const GithubContext = createContext();
 const github_url = process.env.REACT_APP_GITHUB_URL;
@@ -6,6 +7,7 @@ const github_url = process.env.REACT_APP_GITHUB_URL;
 export const GithubProvide = ({ children }) => {
   const initialValue = {
     users: [],
+    user:{},
     loading: false,
   };
 
@@ -48,6 +50,22 @@ export const GithubProvide = ({ children }) => {
     });
   };
 
+  // get single user on click user
+    const singleUser = async (login) => {
+      setLoading();
+      // const params = useParams();
+      const response = await fetch(`${github_url}/users/${login}`);
+      if(response.status===404){
+        window.location='/notfound'
+      } else{
+        const data= await response.json();
+        dispatch({
+          type: "GET_USER",
+          payload: data,
+        });
+      }
+    };
+
   const setLoading = () =>
   dispatch({
     type: "SET_LOADING",
@@ -65,8 +83,10 @@ export const GithubProvide = ({ children }) => {
       value={{
         users: state.users,
         loading: state.loading,
+        user:state.user,
         searchUsers,
         handleClear,
+        singleUser,
       }}
     >
       {children}

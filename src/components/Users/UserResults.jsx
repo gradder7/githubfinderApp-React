@@ -1,29 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
+import GithubContext from "../../context/github/GithubContext";
 import Spinner from "../layout/Spinner";
 import UsersItems from "./UsersItems";
 
 export default function UserResults() {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const{users,loading,fetchData} = useContext(GithubContext);
 
   useEffect(() => {
     fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    const response = await fetch(`${process.env.REACT_APP_GITHUB_URL}/users`)
-    // , {
-    //   // to set the github token in authorization
-    //   //we include it in header it will send the token with request
-    //   headers: {
-    //     Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`,
-    //   },
-    // });
-    const data = await response.json();
-    setUsers(data);
-    setLoading(false);
-    console.log(data);
-  };
+  });
 
   //   if loading true than show loader or data
   return loading ? (

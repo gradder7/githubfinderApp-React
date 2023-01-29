@@ -2,7 +2,6 @@ import React from "react";
 import { FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { neutral } from "tailwindcss/colors";
 
 export default function Navbar({ title }) {
   return (

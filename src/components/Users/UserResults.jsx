@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Spinner from "../layout/Spinner";
 
 export default function UserResults() {
   const [users, setUsers] = useState([]);
@@ -9,21 +10,23 @@ export default function UserResults() {
   }, []);
 
   const fetchData = async () => {
-    const response = await fetch(`${process.env.REACT_APP_GITHUB_URL}/users`, {
-      // to set the github token in authorization
-      //we include it in header it will send the token with request
-      headers: {
-        Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`,
-      },
-    });
+    const response = await fetch(`${process.env.REACT_APP_GITHUB_URL}/users`)
+    // , {
+    //   // to set the github token in authorization
+    //   //we include it in header it will send the token with request
+    //   headers: {
+    //     Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`,
+    //   },
+    // });
     const data = await response.json();
     setUsers(data);
     setLoading(false);
+    console.log(data);
   };
 
   //   if loading true than show loader or data
   return loading ? (
-    <h1>Loading...</h1>
+   <Spinner/>
   ) : (
     <div className="grid grid-col-1 gap-8 xl:grid-col-4 lg:grid-col-3 md:grid-col-2">
       {users.map((user,index) => {
@@ -32,3 +35,6 @@ export default function UserResults() {
     </div>
   );
 }
+
+
+

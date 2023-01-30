@@ -9,11 +9,11 @@ export default function About() {
         project is part of the
         <a href="/">
           {" "}
-          React Front To Back
+          React Project
         </a>{" "}
-        Udemy course by
+        By
         <strong>
-          <a href="/"> Brad Traversy</a>
+          <a href="/"> Himanshu Mehra</a>
         </strong>
         .
       </p>

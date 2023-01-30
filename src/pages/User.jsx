@@ -5,7 +5,7 @@ import GithubContext from "../context/github/GithubContext";
 import { Link } from "react-router-dom";
 import Spinner from "../components/layout/Spinner";
 import RepoList from "../components/repos/RepoList";
-import { getUserRepos, singleUser } from "../context/github/GIthubActions";
+import { getUserAndRepos, } from "../context/github/GIthubActions";
 
 export default function User() {
   const param = useParams();
@@ -16,13 +16,13 @@ export default function User() {
   useEffect(() => {
     const getUsersdata = async () => {
       dispatch({ type: "SET_LOADING" });
-      const userData = await singleUser(param.login);
-      dispatch({ type: "GET_USER", payload: userData });
-      const reposData = await getUserRepos(param.login);
-      dispatch({ type: "GET_REPOS", payload: reposData });
+      const userData = await getUserAndRepos(param.login);
+      dispatch({ type: "GET_USER_AND_REPOS", payload: userData });
+      // const reposData = await getUserRepos(param.login);
+      // dispatch({ type: "GET_REPOS", payload: reposData });
     };
     getUsersdata();
-  }, [dispatch,param.login]);
+  }, [dispatch, param.login]);
   // destructuring the user
   const {
     name,

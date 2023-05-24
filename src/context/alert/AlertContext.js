@@ -18,6 +18,7 @@ const AlertContext=createContext();
             }) 
         },3000)
     }
+    
     return(
         <AlertContext.Provider value={{alert:state,setAlert}} >
             {children}

@@ -26,6 +26,7 @@ function UserItem({ user: { login, avatar_url } }) {
   );
 }
 
+
 UserItem.propTypes = {
   user: PropTypes.object.isRequired,
 };

@@ -5,7 +5,7 @@ import GithubContext from "../context/github/GithubContext";
 import { Link } from "react-router-dom";
 import Spinner from "../components/layout/Spinner";
 import RepoList from "../components/repos/RepoList";
-import { getUserAndRepos, } from "../context/github/GIthubActions";
+import { getUserAndRepos } from "../context/github/GIthubActions";
 
 export default function User() {
   const param = useParams();
@@ -65,7 +65,7 @@ export default function User() {
             </div>
           </div>
 
-          <div className="col-span-2">
+          <div className="col-span-2 ">
             <div className="mb-6">
               <h1 className="text-3xl card-title">
                 {name}

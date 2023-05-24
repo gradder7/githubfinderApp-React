@@ -5,7 +5,7 @@ import GithubContext from "../../context/github/GithubContext";
 
 export default function UserSearch() {
   const [text, setText] = useState("");
-  const { users,dispatch } = useContext(GithubContext);
+  const { users, dispatch } = useContext(GithubContext);
 
   const { state, setAlert } = useContext(AlertContext);
   const handleChange = (e) => {
@@ -17,15 +17,15 @@ export default function UserSearch() {
     if (text.trim() === "") {
       setAlert("Please Enter Something!", "error");
     } else {
-      dispatch({type:'SET_LOADING'})
+      dispatch({ type: "SET_LOADING" });
       //search users
-     const users = await searchUsers(text);
-     dispatch({
-      type:'GET_USERS',
-      payload:users
-     })
-     
-     setText("");
+      const users = await searchUsers(text);
+      dispatch({
+        type: "GET_USERS",
+        payload: users,
+      });
+
+      setText("");
     }
   };
 
@@ -37,7 +37,7 @@ export default function UserSearch() {
             <div className="relative">
               <input
                 type="text"
-                className="w-full pr-40 bg-gray-200 input input-lg text-black"
+                className="w-full pr-40 bg-gray-200 input  input-lg text-black"
                 placeholder="Search"
                 value={text}
                 onChange={handleChange}
@@ -54,7 +54,12 @@ export default function UserSearch() {
       </div>
       {users.length > 0 && (
         <div>
-          <button onClick={()=>{dispatch({ type: "CLEAR_USERS" });}} className="btn btn-ghost btn-lg">
+          <button
+            onClick={() => {
+              dispatch({ type: "CLEAR_USERS" });
+            }}
+            className="btn btn-ghost btn-lg"
+          >
             Clear
           </button>
         </div>
